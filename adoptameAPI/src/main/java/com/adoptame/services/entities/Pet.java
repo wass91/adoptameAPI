@@ -2,7 +2,7 @@ package com.adoptame.services.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,6 +18,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pet")
@@ -41,22 +43,44 @@ public class Pet implements Serializable{
         @JoinColumn(name = "pet_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "vaccine_id", referencedColumnName = "id")})
     @ManyToMany
-    private Collection<Vaccine> vaccineCollection;
+    @JsonIgnore
+    private List<Vaccine> vaccineCollection;
     @OneToOne(mappedBy = "petId")
     private Adoption adoption;
     @OneToOne(mappedBy = "petId")
+    @JsonIgnore
     private Post post;
     @JoinColumn(name = "breed_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Breed breed;
     @JoinColumn(name = "specie_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Specie specie;
 
     public Pet() {
     }
+    
+    
 
-    public Pet(Integer id) {
+    public Pet(Integer id, Date birthdate, String image, boolean sterilized, List<Vaccine> vaccineCollection,
+			Adoption adoption, Post post, Breed breed, Specie specie) {
+		super();
+		this.id = id;
+		this.birthdate = birthdate;
+		this.image = image;
+		this.sterilized = sterilized;
+		this.vaccineCollection = vaccineCollection;
+		this.adoption = adoption;
+		this.post = post;
+		this.breed = breed;
+		this.specie = specie;
+	}
+
+
+
+	public Pet(Integer id) {
         this.id = id;
     }
 
@@ -97,11 +121,11 @@ public class Pet implements Serializable{
         this.sterilized = sterilized;
     }
 
-    public Collection<Vaccine> getVaccineCollection() {
+    public List<Vaccine> getVaccineCollection() {
         return vaccineCollection;
     }
 
-    public void setVaccineCollection(Collection<Vaccine> vaccineCollection) {
+    public void setVaccineCollection(List<Vaccine> vaccineCollection) {
         this.vaccineCollection = vaccineCollection;
     }
 

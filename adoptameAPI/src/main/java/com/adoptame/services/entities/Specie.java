@@ -2,6 +2,7 @@ package com.adoptame.services.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,6 +15,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "specie")
@@ -31,10 +35,12 @@ public class Specie implements Serializable{
     private String name;
     @OneToMany(mappedBy = "specie")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<Breed> breedCollection;
+    @JsonIgnore
+    private List<Breed> breedCollection;
 	@OneToMany(mappedBy = "specie")
 	@LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<Pet> petCollection;
+	@JsonIgnore
+    private List<Pet> petCollection;
 
     public Specie() {
     }
@@ -64,19 +70,19 @@ public class Specie implements Serializable{
         this.name = name;
     }
 
-    public Collection<Pet> getPetCollection() {
+    public List<Pet> getPetCollection() {
         return petCollection;
     }
 
-    public void setPetCollection(Collection<Pet> petCollection) {
+    public void setPetCollection(List<Pet> petCollection) {
         this.petCollection = petCollection;
     }
     
-    public Collection<Breed> getBreedCollection() {
+    public List<Breed> getBreedCollection() {
 		return breedCollection;
 	}
 
-	public void setBreedCollection(Collection<Breed> breedCollection) {
+	public void setBreedCollection(List<Breed> breedCollection) {
 		this.breedCollection = breedCollection;
 	}
 

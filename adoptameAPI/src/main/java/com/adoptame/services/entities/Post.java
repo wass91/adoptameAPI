@@ -2,6 +2,7 @@ package com.adoptame.services.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Collection;
 
 import javax.persistence.Basic;
@@ -17,6 +18,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "post")
@@ -43,9 +47,11 @@ public class Post implements Serializable{
         @JoinColumn(name = "post_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "user_id", referencedColumnName = "id")})
     @ManyToMany
-    private Collection<User> usersCollection;
+    @JsonIgnore
+    private List<User> usersCollection;
     @JoinColumn(name = "pet_id", referencedColumnName = "id")
     @OneToOne
+    @JsonIgnore
     private Pet petId;
 
     public Post() {
@@ -100,11 +106,11 @@ public class Post implements Serializable{
         this.visits = visits;
     }
 
-    public Collection<User> getUsersCollection() {
+    public List<User> getUsersCollection() {
         return usersCollection;
     }
 
-    public void setUsersCollection(Collection<User> usersCollection) {
+    public void setUsersCollection(List<User> usersCollection) {
         this.usersCollection = usersCollection;
     }
 

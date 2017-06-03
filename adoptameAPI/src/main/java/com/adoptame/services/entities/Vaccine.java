@@ -1,7 +1,7 @@
 package com.adoptame.services.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "vaccine")
@@ -27,7 +30,8 @@ public class Vaccine implements Serializable{
     @Column(name = "name")
     private String name;
     @ManyToMany(mappedBy = "vaccineCollection")
-    private Collection<Pet> petCollection;
+    @JsonIgnore
+    private List<Pet> petCollection;
 
     public Vaccine() {
     }
@@ -57,11 +61,11 @@ public class Vaccine implements Serializable{
         this.name = name;
     }
 
-    public Collection<Pet> getPetCollection() {
+    public List<Pet> getPetCollection() {
         return petCollection;
     }
 
-    public void setPetCollection(Collection<Pet> petCollection) {
+    public void setPetCollection(List<Pet> petCollection) {
         this.petCollection = petCollection;
     }
 

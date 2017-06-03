@@ -2,6 +2,7 @@ package com.adoptame.services.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,6 +15,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 
@@ -37,8 +42,10 @@ public class Adoption implements Serializable {
         @JoinColumn(name = "adoption_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "user_id", referencedColumnName = "id")})
     @ManyToMany
-    private Collection<User> usersCollection;
-    @JoinColumn(name = "pet_id", referencedColumnName = "id")
+    @JsonIgnore
+    private List<User> usersCollection;
+
+	@JoinColumn(name = "pet_id", referencedColumnName = "id")
     @OneToOne
     private Pet petId;
 
@@ -77,15 +84,15 @@ public class Adoption implements Serializable {
     public void setAdoptiondate(String adoptiondate) {
         this.adoptiondate = adoptiondate;
     }
-
     
-    public Collection<User> getUsersCollection() {
-        return usersCollection;
-    }
+    public List<User> getUsersCollection() {
+		return usersCollection;
+	}
 
-    public void setUsersCollection(Collection<User> usersCollection) {
-        this.usersCollection = usersCollection;
-    }
+	public void setUsersCollection(List<User> usersCollection) {
+		this.usersCollection = usersCollection;
+	}
+    
 
     public Pet getPetId() {
         return petId;

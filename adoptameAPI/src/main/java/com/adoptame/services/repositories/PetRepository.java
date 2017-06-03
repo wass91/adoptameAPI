@@ -10,9 +10,9 @@ import com.adoptame.services.entities.Pet;
 public interface PetRepository extends JpaRepository<Pet, Integer>{
 	
 	@Query("SELECT p FROM Pet p WHERE p.specie.id = ?1")
-	public Page<Pet> getPetsFromSpecie(Integer specieId, Pageable pageable);
+	public Page<Pet> findPetsFromSpecie(Integer specieId, Pageable pageable);
 	
 	@Query("SELECT p FROM Pet p WHERE p.breed.id = ?1")
-	public Page<Pet> getPetsFromBreed(Integer breedId, Pageable pageable);
+	public Page<Pet> findPetsFromBreed(Integer breedId, Pageable pageable);
 	
 }

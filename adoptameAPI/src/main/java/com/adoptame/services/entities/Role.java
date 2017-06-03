@@ -2,6 +2,7 @@ package com.adoptame.services.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,6 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -32,7 +37,8 @@ public class Role implements Serializable{
         @JoinColumn(name = "role_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "user_id", referencedColumnName = "id")})
     @ManyToMany
-    private Collection<User> usersCollection;
+    @JsonIgnore
+    private List<User> usersCollection;
 
     public Role() {
     }
@@ -62,11 +68,11 @@ public class Role implements Serializable{
         this.name = name;
     }
 
-    public Collection<User> getUsersCollection() {
+    public List<User> getUsersCollection() {
         return usersCollection;
     }
 
-    public void setUsersCollection(Collection<User> usersCollection) {
+    public void setUsersCollection(List<User> usersCollection) {
         this.usersCollection = usersCollection;
     }
 

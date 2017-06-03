@@ -2,7 +2,7 @@ package com.adoptame.services.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,6 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "User")
@@ -43,11 +47,14 @@ public class User implements Serializable{
     @Column(name = "active")
     private boolean active;
     @ManyToMany(mappedBy = "usersCollection")
-    private Collection<Role> roleCollection;
+    @JsonIgnore
+    private List<Role> roleCollection;
     @ManyToMany(mappedBy = "usersCollection")
-    private Collection<Adoption> adoptionCollection;
+    @JsonIgnore
+    private List<Adoption> adoptionCollection;
     @ManyToMany(mappedBy = "usersCollection")
-    private Collection<Post> postCollection;
+    @JsonIgnore
+    private List<Post> postCollection;
 
     public User() {
     }
@@ -127,27 +134,27 @@ public class User implements Serializable{
         this.active = active;
     }
 
-    public Collection<Role> getRoleCollection() {
+    public List<Role> getRoleCollection() {
         return roleCollection;
     }
 
-    public void setRoleCollection(Collection<Role> roleCollection) {
+    public void setRoleCollection(List<Role> roleCollection) {
         this.roleCollection = roleCollection;
     }
 
-    public Collection<Adoption> getAdoptionCollection() {
+    public List<Adoption> getAdoptionCollection() {
         return adoptionCollection;
     }
 
-    public void setAdoptionCollection(Collection<Adoption> adoptionCollection) {
+    public void setAdoptionCollection(List<Adoption> adoptionCollection) {
         this.adoptionCollection = adoptionCollection;
     }
 
-    public Collection<Post> getPostCollection() {
+    public List<Post> getPostCollection() {
         return postCollection;
     }
 
-    public void setPostCollection(Collection<Post> postCollection) {
+    public void setPostCollection(List<Post> postCollection) {
         this.postCollection = postCollection;
     }
 

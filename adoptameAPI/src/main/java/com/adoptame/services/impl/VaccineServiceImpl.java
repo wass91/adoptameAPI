@@ -1,5 +1,7 @@
 package com.adoptame.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -63,6 +65,7 @@ public class VaccineServiceImpl implements VaccineService{
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public Vaccine update(Integer id, String name) throws Exception {
 		Vaccine vaccine = null;
 		vaccine = vaccineRepository.findOne(id);
@@ -77,5 +80,5 @@ public class VaccineServiceImpl implements VaccineService{
 		}
 		return vaccine;
 	}
-	
+		
 }
