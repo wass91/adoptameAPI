@@ -58,5 +58,16 @@ public interface ServiceDirectory {
 	public static final String ADOPTION_GET_PET_ID = "/adoption/getPetId";
 	public static final String ADOPTION_ACTIVATE = "/adoption/activate";
 	
-	
+	//Postulation	
+	public static final String POSTULATION_GET_ALL = "/postulation";
+	public static final String POSTULATION_GET_ACTIVE = "/postulation/getActive";
+	public static final String POSTULATION_GET_BY_ID = "/postulation/getById";
+	public static final String POSTULATION_CREATE = "/postulation/create";
+	public static final String POSTULATION_UPDATE = "/postulation/update";
+	public static final String POSTULATION_GET_BY_PET = "/postulation/getByPet";
+	public static final String POSTULATION_GET_BY_SPECIE = "/postulation/getBySpecie";
+	public static final String POSTULATION_GET_BY_BREED = "/postulation/getByBreed";
+	public static final String POSTULATION_GET_BY_USER = "/postulation/getByUser";
+	public static final String POSTULATION_GET_PET_ID = "/postulation/getPetId";
+	public static final String POSTULATION_ACTIVATE = "/postulation/activate";
 }

@@ -13,39 +13,31 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.adoptame.services.AdoptionService;
-import com.adoptame.services.PostService;
-import com.adoptame.services.entities.Adoption;
+
+import com.adoptame.services.PostulationService;
 import com.adoptame.services.entities.Pet;
-import com.adoptame.services.entities.Post;
 import com.adoptame.services.entities.Postulation;
 import com.adoptame.services.entities.User;
-import com.adoptame.services.repositories.AdoptionRepository;
 import com.adoptame.services.repositories.PetRepository;
 import com.adoptame.services.repositories.PostulationRepository;
 import com.adoptame.services.repositories.UserRepository;
 
 @Service
-public class AdoptionServiceImpl implements AdoptionService{
+public class PostulationServiceImpl implements PostulationService{
 	
 	@Autowired
-	private AdoptionRepository adoptionRepository;
+	private PostulationRepository postulationRepository;
 	
 	@Autowired
 	private PetRepository petRepository;
 	
 	@Autowired
 	private UserRepository userRepository;
-
-	@Autowired
-	private PostService postService; 
-	
-	private PostulationRepository postulationRepository;
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,readOnly=true)
-	public Page<Adoption> getAll(Integer page, Integer limit) throws Exception {
-		Page<Adoption> pageAdoptions = null;
+	public Page<Postulation> getAll(Integer page, Integer limit) throws Exception {
+		Page<Postulation> pagePostulation = null;
 		Sort sortObject = null;
 		
 		Direction dir = Sort.Direction.ASC;
@@ -54,77 +46,71 @@ public class AdoptionServiceImpl implements AdoptionService{
 		
 		try {
 			PageRequest pageable = new PageRequest(page,limit, sortObject);
-			pageAdoptions = adoptionRepository.findAll(pageable);
+			pagePostulation = postulationRepository.findAll(pageable);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
-		return pageAdoptions;
+		return pagePostulation;
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,readOnly=true)
-	public Adoption create(boolean active, Date adoptionDate, Integer userId, Integer petId) throws Exception {
-		Adoption adoption = null;
+	public Postulation create(boolean active, Date postulationDate, Integer userId, Integer petId) throws Exception {
+		Postulation postulation = null;
 		try {
-			adoption = new Adoption();
+			postulation = new Postulation();
 			User user = userRepository.findOne(userId);
 			Pet pet = petRepository.findOne(petId);
-			Post post = postService.getByPet(petId, 0, 0);
-			adoption.setActive(active);
-			adoption.setUser(user);
-			adoption.setPet(pet);
-			adoption.setAdoptionDate(adoptionDate);
-			adoption = adoptionRepository.saveAndFlush(adoption);
-			postService.activatePost(post.getId(), false);
-			for(Postulation postulation : postulationRepository.findByPetId(petId)){
-				postulation.setActive(false);
-				postulationRepository.saveAndFlush(postulation);
-			}
+			postulation.setActive(active);
+			postulation.setUser(user);
+			postulation.setPet(pet);
+			postulation.setPostulationDate(postulationDate);
+			postulation = postulationRepository.saveAndFlush(postulation);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
-		return adoption;
+		return postulation;
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,readOnly=true)
-	public Adoption update(Integer id, boolean active, Date adoptionDate, Integer userId, Integer petId)
+	public Postulation update(Integer id, boolean active, Date postulationDate, Integer userId, Integer petId)
 			throws Exception {
-		Adoption adoption = null;
+		Postulation postulation = null;
 		try {
-			adoption = adoptionRepository.findOne(id);
-			if(adoption == null){
+			postulation = postulationRepository.findOne(id);
+			if(postulation == null){
 				throw new Exception("Adoption not found");
 			}
 			User user = userRepository.findOne(userId);
 			Pet pet = petRepository.findOne(petId);
-			adoption.setActive(active);
-			adoption.setUser(user);
-			adoption.setPet(pet);
-			adoption.setAdoptionDate(adoptionDate);
-			adoption = adoptionRepository.saveAndFlush(adoption);
+			postulation.setActive(active);
+			postulation.setUser(user);
+			postulation.setPet(pet);
+			postulation.setPostulationDate(postulationDate);
+			postulation = postulationRepository.saveAndFlush(postulation);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
-		return adoption;
+		return postulation;
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,readOnly=true)
-	public Adoption getById(Integer id) throws Exception {
-		Adoption adoption = null;
+	public Postulation getById(Integer id) throws Exception {
+		Postulation postulation = null;
 		try {
-			adoption = adoptionRepository.findOne(id);
+			postulation = postulationRepository.findOne(id);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
-		return adoption;
+		return postulation;
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,readOnly=true)
-	public Page<Adoption> getBySpecie(Integer specieId, Integer page, Integer limit) throws Exception {
-		Page<Adoption> pageAdoptions = null;
+	public Page<Postulation> getBySpecie(Integer specieId, Integer page, Integer limit) throws Exception {
+		Page<Postulation> pagePostulations = null;
 		Sort sortObject = null;
 		
 		Direction dir = Sort.Direction.ASC;
@@ -133,17 +119,17 @@ public class AdoptionServiceImpl implements AdoptionService{
 		
 		try {
 			PageRequest pageable = new PageRequest(page,limit, sortObject);
-			pageAdoptions = adoptionRepository.findBySpecieId(specieId, pageable);
+			pagePostulations = postulationRepository.findBySpecieId(specieId, pageable);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
-		return pageAdoptions;
+		return pagePostulations;
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,readOnly=true)
-	public Page<Adoption> getByBreed(Integer breedId, Integer page, Integer limit) throws Exception {
-		Page<Adoption> pageAdoptions = null;
+	public Page<Postulation> getByBreed(Integer breedId, Integer page, Integer limit) throws Exception {
+		Page<Postulation> pagePostulation = null;
 		Sort sortObject = null;
 		
 		Direction dir = Sort.Direction.ASC;
@@ -152,30 +138,17 @@ public class AdoptionServiceImpl implements AdoptionService{
 		
 		try {
 			PageRequest pageable = new PageRequest(page,limit, sortObject);
-			pageAdoptions = adoptionRepository.findByBreedId(breedId, pageable);
+			pagePostulation = postulationRepository.findByBreedId(breedId, pageable);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
-		return pageAdoptions;
+		return pagePostulation;
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,readOnly=true)
-	public Adoption getByPet(Integer petId, Integer page, Integer limit) throws Exception {
-		Adoption adoption = null;
-		
-		try {
-			adoption = adoptionRepository.findByPetId(petId);
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
-		return adoption;
-	}
-
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED,readOnly=true)
-	public Page<Adoption> getByUser(Integer userId, Integer page, Integer limit) throws Exception {
-		Page<Adoption> pageAdoptions = null;
+	public Page<Postulation> getByPet(Integer petId, Integer page, Integer limit) throws Exception {
+		Page<Postulation> pagePostulation = null;
 		Sort sortObject = null;
 		
 		Direction dir = Sort.Direction.ASC;
@@ -184,17 +157,17 @@ public class AdoptionServiceImpl implements AdoptionService{
 		
 		try {
 			PageRequest pageable = new PageRequest(page,limit, sortObject);
-			pageAdoptions = adoptionRepository.findByUserId(userId, pageable);
+			pagePostulation = postulationRepository.findByPetId(petId, pageable);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
-		return pageAdoptions;
+		return pagePostulation;
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,readOnly=true)
-	public Page<Adoption> getByActive(boolean active, Integer page, Integer limit) throws Exception {
-		Page<Adoption> pageAdoptions = null;
+	public Page<Postulation> getByUser(Integer userId, Integer page, Integer limit) throws Exception {
+		Page<Postulation> pagePostulations = null;
 		Sort sortObject = null;
 		
 		Direction dir = Sort.Direction.ASC;
@@ -203,27 +176,46 @@ public class AdoptionServiceImpl implements AdoptionService{
 		
 		try {
 			PageRequest pageable = new PageRequest(page,limit, sortObject);
-			pageAdoptions = adoptionRepository.findByActive(true, pageable);
+			pagePostulations = postulationRepository.findByUserId(userId, pageable);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
-		return pageAdoptions;
+		return pagePostulations;
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,readOnly=true)
-	public boolean activateAdoption(Integer id, boolean active) throws Exception {
-		Adoption adoption = null;
+	public Page<Postulation> getByActive(boolean active, Integer page, Integer limit) throws Exception {
+		Page<Postulation> pagePostulations = null;
+		Sort sortObject = null;
+		
+		Direction dir = Sort.Direction.ASC;
+		Order order = new Order(dir, "id");
+		sortObject = new Sort(order);
+		
 		try {
-			adoption = adoptionRepository.findOne(id);
-			if(adoption == null){
+			PageRequest pageable = new PageRequest(page,limit, sortObject);
+			pagePostulations = postulationRepository.findByActive(true, pageable);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		return pagePostulations;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public boolean activatePostulation(Integer id, boolean active) throws Exception {
+		Postulation postulation = null;
+		try {
+			postulation = postulationRepository.findOne(id);
+			if(postulation == null){
 				throw new Exception("Not adoption found");
 			}
-			adoption.setActive(active);
+			postulation.setActive(active);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
-		return adoption.getActive();
+		return postulation.getActive();
 	}
 	
 }

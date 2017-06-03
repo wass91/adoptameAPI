@@ -14,10 +14,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -58,6 +62,10 @@ public class Pet implements Serializable{
     @ManyToOne
     @JsonIgnore
     private Specie specie;
+    @OneToMany(mappedBy = "pet")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JsonIgnore
+    private List<Postulation> postulations;
 
     public Pet() {
     }
@@ -160,6 +168,19 @@ public class Pet implements Serializable{
 	public void setSpecie(Specie specie) {
 		this.specie = specie;
 	}
+	
+
+	public List<Postulation> getPostulations() {
+		return postulations;
+	}
+
+
+
+	public void setPostulations(List<Postulation> postulations) {
+		this.postulations = postulations;
+	}
+
+
 
 	@Override
     public int hashCode() {
