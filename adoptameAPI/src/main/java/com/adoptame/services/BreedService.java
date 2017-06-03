@@ -3,7 +3,6 @@ package com.adoptame.services;
 import org.springframework.data.domain.Page;
 
 import com.adoptame.services.entities.Breed;
-import com.adoptame.services.entities.Specie;
 
 public interface BreedService {
 	public Page<Breed> getAll(Integer page, Integer limit) throws Exception;

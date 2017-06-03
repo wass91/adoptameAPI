@@ -3,7 +3,6 @@ package com.adoptame.services.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Collection;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -19,7 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
