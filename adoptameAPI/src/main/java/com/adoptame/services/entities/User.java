@@ -22,7 +22,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "User")
+@Table(name = "users")
 public class User implements Serializable{
 	private static final long serialVersionUID = -1421867814364883320L;
 	@Id
@@ -39,13 +39,13 @@ public class User implements Serializable{
     private String lastName;
     @Column(name = "password")
     private String password;
-    @Basic(optional = false)
+//    @Basic(optional = false)
     @Column(name = "phone")
     private String phone;
     @Column(name = "birthdate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthdate;
-    @Basic(optional = false)
+//    @Basic(optional = false)
     @Column(name = "active")
     private boolean active;
     @ManyToMany(mappedBy = "usersCollection")

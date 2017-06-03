@@ -70,4 +70,8 @@ public interface ServiceDirectory {
 	public static final String POSTULATION_GET_BY_USER = "/postulation/getByUser";
 	public static final String POSTULATION_GET_PET_ID = "/postulation/getPetId";
 	public static final String POSTULATION_ACTIVATE = "/postulation/activate";
+	
+	//User
+	public static final String USER_CREATE = "/user/create";
+	public static final String USER_LOGIN = "/user/login";
 }
