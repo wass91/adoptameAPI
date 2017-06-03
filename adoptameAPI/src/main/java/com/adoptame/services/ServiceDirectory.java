@@ -56,6 +56,7 @@ public interface ServiceDirectory {
 	public static final String ADOPTION_GET_BY_BREED = "/adoption/getByBreed";
 	public static final String ADOPTION_GET_BY_USER = "/adoption/getByUser";
 	public static final String ADOPTION_GET_PET_ID = "/adoption/getPetId";
+	public static final String ADOPTION_ACTIVATE = "/adoption/activate";
 	
 	
 }

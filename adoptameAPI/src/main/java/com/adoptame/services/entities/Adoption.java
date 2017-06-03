@@ -46,7 +46,20 @@ public class Adoption implements Serializable {
     public Adoption() {
     }
 
-    public Adoption(Integer id) {
+    
+    
+    public Adoption(Integer id, boolean active, Date adoptionDate, User user, Pet pet) {
+		super();
+		this.id = id;
+		this.active = active;
+		this.adoptionDate = adoptionDate;
+		this.user = user;
+		this.pet = pet;
+	}
+
+
+
+	public Adoption(Integer id) {
         this.id = id;
     }
 
