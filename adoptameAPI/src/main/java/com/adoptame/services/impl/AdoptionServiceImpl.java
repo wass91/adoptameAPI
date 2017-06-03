@@ -1,24 +1,31 @@
 package com.adoptame.services.impl;
 
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.adoptame.services.AdoptionService;
 import com.adoptame.services.entities.Adoption;
+import com.adoptame.services.repositories.AdoptionRepository;
 
 @Service
 public class AdoptionServiceImpl implements AdoptionService{
 
+	@Autowired
+	private AdoptionRepository adoptionRepository;
+	
 	@Override
 	public Adoption getAdoption(int id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Page<Adoption> getAllAdoptions() {
-		// TODO Auto-generated method stub
+		List<Adoption> list = adoptionRepository.findAll();
+		list.size();
 		return null;
 	}
 

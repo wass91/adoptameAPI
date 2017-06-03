@@ -4,15 +4,16 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "specie")
@@ -28,9 +29,11 @@ public class Specie implements Serializable{
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "specie")
-    private Breed breed;
-    @OneToMany(mappedBy = "specieId")
+    @OneToMany(mappedBy = "specie")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Collection<Breed> breedCollection;
+	@OneToMany(mappedBy = "specie")
+	@LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Pet> petCollection;
 
     public Specie() {
@@ -61,14 +64,6 @@ public class Specie implements Serializable{
         this.name = name;
     }
 
-    public Breed getBreed() {
-        return breed;
-    }
-
-    public void setBreed(Breed breed) {
-        this.breed = breed;
-    }
-
     public Collection<Pet> getPetCollection() {
         return petCollection;
     }
@@ -76,6 +71,14 @@ public class Specie implements Serializable{
     public void setPetCollection(Collection<Pet> petCollection) {
         this.petCollection = petCollection;
     }
+    
+    public Collection<Breed> getBreedCollection() {
+		return breedCollection;
+	}
+
+	public void setBreedCollection(Collection<Breed> breedCollection) {
+		this.breedCollection = breedCollection;
+	}
 
     @Override
     public int hashCode() {

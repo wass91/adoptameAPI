@@ -1,16 +1,18 @@
 package com.adoptame.services.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,13 +27,11 @@ public class Breed implements Serializable{
     private Integer id;
     @Column(name = "name")
     private String name;
-    @Column(name = "specie_id")
-    private Integer specieId;
-    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @JoinColumn(name = "specie_id", referencedColumnName = "id")
+    @ManyToOne
     private Specie specie;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "breedId")
-    private Pet pet;
+    @OneToMany(mappedBy = "breed")
+    private Collection<Pet> petsCollection;
 
     public Breed() {
     }
@@ -56,14 +56,6 @@ public class Breed implements Serializable{
         this.name = name;
     }
 
-    public Integer getSpecieId() {
-        return specieId;
-    }
-
-    public void setSpecieId(Integer specieId) {
-        this.specieId = specieId;
-    }
-
     public Specie getSpecie() {
         return specie;
     }
@@ -72,15 +64,15 @@ public class Breed implements Serializable{
         this.specie = specie;
     }
 
-    public Pet getPet() {
-        return pet;
-    }
+    public Collection<Pet> getPetsCollection() {
+		return petsCollection;
+	}
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
+	public void setPetsCollection(Collection<Pet> petsCollection) {
+		this.petsCollection = petsCollection;
+	}
 
-    @Override
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

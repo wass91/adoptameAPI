@@ -47,11 +47,11 @@ public class Pet implements Serializable{
     @OneToOne(mappedBy = "petId")
     private Post post;
     @JoinColumn(name = "breed_id", referencedColumnName = "id")
-    @OneToOne(optional = false)
-    private Breed breedId;
+    @ManyToOne
+    private Breed breed;
     @JoinColumn(name = "specie_id", referencedColumnName = "id")
     @ManyToOne
-    private Specie specieId;
+    private Specie specie;
 
     public Pet() {
     }
@@ -120,24 +120,24 @@ public class Pet implements Serializable{
     public void setPost(Post post) {
         this.post = post;
     }
+    
+    public Breed getBreed() {
+		return breed;
+	}
 
-    public Breed getBreedId() {
-        return breedId;
-    }
+	public void setBreed(Breed breed) {
+		this.breed = breed;
+	}
 
-    public void setBreedId(Breed breedId) {
-        this.breedId = breedId;
-    }
+	public Specie getSpecie() {
+		return specie;
+	}
 
-    public Specie getSpecieId() {
-        return specieId;
-    }
+	public void setSpecie(Specie specie) {
+		this.specie = specie;
+	}
 
-    public void setSpecieId(Specie specieId) {
-        this.specieId = specieId;
-    }
-
-    @Override
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

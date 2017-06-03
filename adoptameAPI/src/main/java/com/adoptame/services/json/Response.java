@@ -1,16 +1,15 @@
 package com.adoptame.services.json;
 
-import java.io.Serializable;
 
-public class Response implements Serializable{
-	
-	private static final long serialVersionUID = -3117073258272285221L;
+public class Response {
 
 	private Object items;
 	
 	private boolean success = true;
 	
 	private String message = null;
+	
+	private Integer total;
 
 	public Object getItems() {
 		return items;
@@ -34,5 +33,13 @@ public class Response implements Serializable{
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public Integer getTotal() {
+		return total;
+	}
+
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
 }
