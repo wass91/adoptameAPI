@@ -45,9 +45,9 @@ public class Pet implements Serializable{
     @ManyToMany
     @JsonIgnore
     private List<Vaccine> vaccineCollection;
-    @OneToOne(mappedBy = "petId")
+    @OneToOne(mappedBy = "pet")
     private Adoption adoption;
-    @OneToOne(mappedBy = "petId")
+    @OneToOne(mappedBy = "pet")
     @JsonIgnore
     private Post post;
     @JoinColumn(name = "breed_id", referencedColumnName = "id")

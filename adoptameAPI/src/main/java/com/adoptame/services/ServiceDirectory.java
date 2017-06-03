@@ -35,6 +35,7 @@ public interface ServiceDirectory {
 	//Post
 	public static final String POST_GET_ALL = "/post";
 	public static final String POST_GET_ACTIVE = "/post/getActive";
+	public static final String POST_ACTIVATE = "/post/activate";
 	public static final String POST_GET_BY_ID = "/post/getById";
 	public static final String POST_CREATE = "/post/create";
 	public static final String POST_UPDATE = "/post/update";
@@ -42,6 +43,7 @@ public interface ServiceDirectory {
 	public static final String POST_GET_BY_SPECIE = "/post/getBySpecie";
 	public static final String POST_GET_BY_BREED = "/post/getByBreed";
 	public static final String POST_GET_BY_USER = "/post/getByUser";
+	public static final String POST_ADD_VISIT = "/post/addVisit";
 	
 	//Adoption
 	public static final String ADOPTION_GET_ALL = "/adoption";

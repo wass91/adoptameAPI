@@ -11,9 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -47,12 +51,14 @@ public class User implements Serializable{
     @ManyToMany(mappedBy = "usersCollection")
     @JsonIgnore
     private List<Role> roleCollection;
-    @ManyToMany(mappedBy = "usersCollection")
+    @OneToMany(mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
-    private List<Adoption> adoptionCollection;
-    @ManyToMany(mappedBy = "usersCollection")
+    private List<Post> posts;
+    @OneToMany(mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
-    private List<Post> postCollection;
+    private List<Adoption> adoptions;
 
     public User() {
     }
@@ -140,23 +146,23 @@ public class User implements Serializable{
         this.roleCollection = roleCollection;
     }
 
-    public List<Adoption> getAdoptionCollection() {
-        return adoptionCollection;
-    }
+    public List<Post> getPosts() {
+		return posts;
+	}
 
-    public void setAdoptionCollection(List<Adoption> adoptionCollection) {
-        this.adoptionCollection = adoptionCollection;
-    }
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
 
-    public List<Post> getPostCollection() {
-        return postCollection;
-    }
+	public List<Adoption> getAdoptions() {
+		return adoptions;
+	}
 
-    public void setPostCollection(List<Post> postCollection) {
-        this.postCollection = postCollection;
-    }
+	public void setAdoptions(List<Adoption> adoptions) {
+		this.adoptions = adoptions;
+	}
 
-    @Override
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

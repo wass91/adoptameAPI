@@ -105,7 +105,7 @@ public class PetController extends BaseController{
 		return response;
 	}
 	
-	@RequestMapping(value = ServiceDirectory.PET_ADD_VACCINE, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = ServiceDirectory.PET_ADD_VACCINE, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Response getAddVaccine(@RequestParam Integer petId, @RequestParam Integer vaccineId){
 		Response response = null;
 		try {
@@ -116,7 +116,7 @@ public class PetController extends BaseController{
 		return response;
 	}
 	
-	@RequestMapping(value = ServiceDirectory.PET_REMOVE_VACCINE, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = ServiceDirectory.PET_REMOVE_VACCINE, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Response getRemoveVaccine(@RequestParam Integer petId, @RequestParam Integer vaccineId){
 		Response response = null;
 		try {

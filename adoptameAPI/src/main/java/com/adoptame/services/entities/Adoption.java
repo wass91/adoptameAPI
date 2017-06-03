@@ -1,7 +1,7 @@
 package com.adoptame.services.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -10,8 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -34,17 +33,15 @@ public class Adoption implements Serializable {
     @Column(name = "active")
     private boolean active;
     @Column(name = "adoptiondate")
-    private String adoptiondate;
-    @JoinTable(name = "user_adoption", joinColumns = {
-        @JoinColumn(name = "adoption_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "id")})
-    @ManyToMany
+    private Date adoptionDate;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
     @JsonIgnore
-    private List<User> usersCollection;
+    private User user;
 
 	@JoinColumn(name = "pet_id", referencedColumnName = "id")
     @OneToOne
-    private Pet petId;
+    private Pet pet;
 
     public Adoption() {
     }
@@ -72,34 +69,33 @@ public class Adoption implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
+    }    
 
-    public String getAdoptiondate() {
-        return adoptiondate;
-    }
-
-    public void setAdoptiondate(String adoptiondate) {
-        this.adoptiondate = adoptiondate;
-    }
-    
-    public List<User> getUsersCollection() {
-		return usersCollection;
+    public Date getAdoptionDate() {
+		return adoptionDate;
 	}
 
-	public void setUsersCollection(List<User> usersCollection) {
-		this.usersCollection = usersCollection;
+	public void setAdoptionDate(Date adoptionDate) {
+		this.adoptionDate = adoptionDate;
 	}
-    
 
-    public Pet getPetId() {
-        return petId;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public void setPetId(Pet petId) {
-        this.petId = petId;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    @Override
+    public Pet getPet() {
+		return pet;
+	}
+
+	public void setPet(Pet pet) {
+		this.pet = pet;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

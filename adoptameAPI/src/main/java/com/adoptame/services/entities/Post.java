@@ -2,7 +2,6 @@ package com.adoptame.services.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -11,8 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -41,21 +39,34 @@ public class Post implements Serializable{
     private String observations;
     @Column(name = "visits")
     private Integer visits;
-    @JoinTable(name = "user_post", joinColumns = {
-        @JoinColumn(name = "post_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "id")})
-    @ManyToMany
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
     @JsonIgnore
-    private List<User> usersCollection;
+    private User user;
     @JoinColumn(name = "pet_id", referencedColumnName = "id")
     @OneToOne
     @JsonIgnore
-    private Pet petId;
+    private Pet pet;
 
     public Post() {
     }
 
-    public Post(Integer id) {
+    
+    
+    public Post(Integer id, Date date, boolean active, String observations, Integer visits, User user, Pet pet) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.active = active;
+		this.observations = observations;
+		this.visits = visits;
+		this.user = user;
+		this.pet = pet;
+	}
+
+
+
+	public Post(Integer id) {
         this.id = id;
     }
 
@@ -104,23 +115,23 @@ public class Post implements Serializable{
         this.visits = visits;
     }
 
-    public List<User> getUsersCollection() {
-        return usersCollection;
-    }
+    public User getUser() {
+		return user;
+	}
 
-    public void setUsersCollection(List<User> usersCollection) {
-        this.usersCollection = usersCollection;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public Pet getPetId() {
-        return petId;
-    }
+	public Pet getPet() {
+		return pet;
+	}
 
-    public void setPetId(Pet petId) {
-        this.petId = petId;
-    }
+	public void setPet(Pet pet) {
+		this.pet = pet;
+	}
 
-    @Override
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
